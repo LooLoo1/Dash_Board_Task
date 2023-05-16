@@ -47,7 +47,7 @@ const Home = () => {
 		</Space>
 		
 		<Space className={`${styles.flex} ${styles.justifyContentCenter}`}>
-			{isLoading && list.length !== 0
+			{isLoading
 				? <Loader/> 
 				:  <Row gutter={24}>
 						{cols.map((title, i) => (
