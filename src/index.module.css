@@ -12,7 +12,8 @@
 	-moz-osx-font-smoothing: grayscale;
  }
 
-.flex {
+
+ .flex {
 	display: flex; 
 }
 
@@ -40,9 +41,20 @@
 	color: red;
 }
 
+.widthFull{
+	width: 100%;
+}
+
 .blockCenter{
 	display: flex; 
 	justify-content: center; 
 	align-items: center; 
 	height: 100vh;
+}
+
+.loader{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #E67700;
 }

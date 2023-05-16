@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { StarFilled } from "@ant-design/icons";
 import { Spin } from "antd";
+import styles from '../index.module.css';
+
 
 const Loader = () => {
   return (
-		<div style={{ display: "flex", flexDirection: 'column', justifyContent: "center", color: "#E67700" }}>
+		<div className={styles.loader}>
 			<Spin
 				indicator={<StarFilled style={{ color: "#E67700" }} spin />}
 				size="large"

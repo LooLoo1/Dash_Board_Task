@@ -16,22 +16,37 @@ import { changeStatusToDoAction, removeToDoAction } from '../store/todoReducer';
 const { Paragraph } = Typography
 
 const ToDoCard = ({ data, rule }) => {
+
+	const {id, title, body, time, completed} = data
+
 	const dispatch = useDispatch()
 	const navigate = useNavigate();
+
+	const handleStatusChange = () => {
+		dispatch(changeStatusToDoAction(id));
+	 };
+  
+	 const handleEditClick = () => {
+		navigate(`/new/${id}`);
+	 };
+  
+	 const handleDeleteClick = () => {
+		dispatch(removeToDoAction(id));
+	 };
 	
-	if (rule !== data.completed ) return null
+	if (rule !== completed ) return null
 	return (
 		<Card
 			type="inner"
-			title={data.title}
+			title={title}
 			actions={[
-				<CheckCircleOutlined onClick={()=>{dispatch(changeStatusToDoAction(data.id))}}/>,
-				<EditOutlined onClick={()=>{navigate(`/new/${data.id}`)}}/>,
-				<DeleteOutlined onClick={()=>{dispatch(removeToDoAction(data.id))}}/>
+				<CheckCircleOutlined onClick={() => {handleStatusChange()}}/>,
+				<EditOutlined onClick={() => {handleEditClick()}}/>,
+				<DeleteOutlined onClick={() => {handleDeleteClick()}}/>
 			]}
 		>
-			<Paragraph ellipsis={{rows: 5}}>{data.body}</Paragraph>
-			<Paragraph strong>{dayjs(data.time).format('MMMM D, YYYY h:mm A')} <ClockCircleOutlined /></Paragraph>
+			<Paragraph ellipsis={{rows: 5}}>{body}</Paragraph>
+			<Paragraph strong>{dayjs(time).format('MMMM D, YYYY h:mm A')} <ClockCircleOutlined /></Paragraph>
 		</Card>
 	)
 }
