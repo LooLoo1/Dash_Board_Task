@@ -2,8 +2,9 @@ import { Col, Row, Space, Typography } from "antd";
 import { useMemo } from "react";
 
 import { COLUMNS } from "../constants";
-import styles from "../index.module.css";
 import ToDoCard from "./ToDoCard";
+
+import styles from "../index.module.css";
 
 const { Title } = Typography;
 

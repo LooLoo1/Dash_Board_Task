@@ -5,8 +5,9 @@ import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import styles from "../index.module.css";
 import { addToDoAction, changeToDoAction } from "../store/todoReducer/actions";
+
+import styles from "../index.module.css";
 
 const { Item } = Form;
 const { Title } = Typography;

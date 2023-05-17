@@ -4,6 +4,11 @@
 	box-sizing: border-box;
  }
 
+:root {
+	--color-red: red;
+	--padding: 1em;
+}
+
  body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
 	  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -13,40 +18,36 @@
  }
 
 
- .flex {
-	display: flex;
+.padding {
+	padding: var(--padding);
+}
+
+.colorRed {
+	color: var(--color-red);
 }
 
 .block {
 	display: block;
 }
 
-.padding{
-	padding: 1em;
-}
-
 .textAlignCenter{
 	text-align: center
 }
 
-.justifyContentCenter{
-	justify-content: center
+.flex {
+	display: flex;
 }
 
-.justifyContentSpaceBetween{
-	justify-content: space-between
+.justifyCenter {
+	justify-content: center;
 }
 
-.justifyContentSpaceEvenly{
+.justifySpaceBetween {
+	justify-content: space-between;
+}
+
+.justifySpaceEvenly{
 	justify-content: space-evenly;
-}
-
-.colorRed{
-	color: red;
-}
-
-.widthFull{
-	width: 100%;
 }
 
 .blockCenter{
@@ -54,6 +55,10 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+}
+
+.widthFull{
+	width: 100%;
 }
 
 .loader{

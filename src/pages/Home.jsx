@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { FiltersAndButton, Loader, ToDoCardList } from "../components";
 import { COLUMNS } from "../constants";
 import { FILTERS } from "../constants/filters";
+
 import styles from "../index.module.css";
 
 const Home = () => {
@@ -37,7 +38,7 @@ const Home = () => {
 
 	if (error) {
 		return (
-			<div className={`${styles.flex} ${styles.justifyContentCenter} ${styles.colorRed} ${styles.padding}`}>
+			<div className={`${styles.flex} ${styles.justifyCenter} ${styles.colorRed} ${styles.padding}`}>
 				<p>{error}</p>
 			</div>
 		);
@@ -46,7 +47,7 @@ const Home = () => {
 	return (
 		<Space className={`${styles.block} ${styles.padding}`} direction="vertical" size="large">
 			<FiltersAndButton handleSort={handleSort} />
-			<div className={`${styles.flex} ${styles.justifyContentCenter} ${styles.padding}`}>
+			<div className={`${styles.flex} ${styles.justifyCenter} ${styles.padding}`}>
 				{isLoading ? <Loader /> : <ToDoCardList filteredTodos={filteredTodos} />}
 			</div>
 		</Space>

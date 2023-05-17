@@ -4,8 +4,9 @@ import { useCallback } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { FILTERS } from "../constants/filters";
-import styles from "../index.module.css";
 import { changeFilterAction } from "../store/todoReducer/actions";
+
+import styles from "../index.module.css";
 
 const { Title } = Typography;
 
