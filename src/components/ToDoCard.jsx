@@ -1,66 +1,73 @@
-import * as React from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types'
-import { Typography, Card } from "antd";
-import {
-	EditOutlined,
-	CheckCircleOutlined,
-	DeleteOutlined,
-	ClockCircleOutlined
-} from '@ant-design/icons';
-
+import { ClockCircleOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Card, Select, Typography } from "antd";
 import dayjs from "dayjs";
-import { changeStatusToDoAction, removeToDoAction } from '../store/todoReducer';
+import PropTypes from "prop-types";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-const { Paragraph } = Typography
+import { changeStatusToDoAction, removeToDoAction } from "../store/todoReducer/actions";
 
-const ToDoCard = ({ data, rule }) => {
+import styles from "../index.module.css";
 
-	const {id, title, body, time, completed} = data
+const { Paragraph } = Typography;
 
-	const dispatch = useDispatch()
-	const navigate = useNavigate();
+const ToDoCard = ({ data, selectRoleOptions }) => {
+	const { id, title, body, time, status } = data;
 
-	const handleStatusChange = () => {
-		dispatch(changeStatusToDoAction(id));
-	 };
-  
-	 const handleEditClick = () => {
-		navigate(`/new/${id}`);
-	 };
-  
-	 const handleDeleteClick = () => {
+	const dispatch = useDispatch();
+
+	const handleDeleteClick = useCallback(() => {
 		dispatch(removeToDoAction(id));
-	 };
-	
-	if (rule !== completed ) return null
+	}, [dispatch, id]);
+
+	const handleStatusChange = useCallback(
+		(status) => {
+			dispatch(changeStatusToDoAction({ id, status }));
+		},
+		[dispatch, id],
+	);
+
 	return (
 		<Card
 			type="inner"
 			title={title}
 			actions={[
-				<CheckCircleOutlined onClick={() => {handleStatusChange()}}/>,
-				<EditOutlined onClick={() => {handleEditClick()}}/>,
-				<DeleteOutlined onClick={() => {handleDeleteClick()}}/>
+				<Select
+					defaultValue={status}
+					className={styles.widthFull}
+					onChange={handleStatusChange}
+					options={selectRoleOptions}
+				/>,
+				<Link to={`/new/${id}`}>
+					<EditOutlined />
+				</Link>,
+				<DeleteOutlined onClick={handleDeleteClick} />,
 			]}
 		>
-			<Paragraph ellipsis={{rows: 5}}>{body}</Paragraph>
-			<Paragraph strong>{dayjs(time).format('MMMM D, YYYY h:mm A')} <ClockCircleOutlined /></Paragraph>
+			<Paragraph ellipsis={{ rows: 5 }}>{body}</Paragraph>
+			<Paragraph strong>
+				{dayjs(time).format("MMMM D, YYYY h:mm A")} <ClockCircleOutlined />
+			</Paragraph>
 		</Card>
-	)
-}
+	);
+};
 
 ToDoCard.propTypes = {
 	data: PropTypes.shape({
-	  userId: PropTypes.number.isRequired,
-	  id: PropTypes.number.isRequired,
-	  title: PropTypes.string.isRequired,
-	  completed: PropTypes.bool.isRequired,
-	  time: PropTypes.instanceOf(Date).isRequired,
-	  body: PropTypes.string.isRequired
+		userId: PropTypes.number.isRequired,
+		id: PropTypes.number.isRequired,
+		title: PropTypes.string.isRequired,
+		completed: PropTypes.bool.isRequired,
+		time: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]).isRequired,
+		body: PropTypes.string.isRequired,
 	}),
-	rule: PropTypes.bool.isRequired
- };
+	selectRoleOptions: PropTypes.arrayOf(
+		PropTypes.shape({
+			value: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
+		}),
+	),
+};
 
-export default ToDoCard
+export default ToDoCard;

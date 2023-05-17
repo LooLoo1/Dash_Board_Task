@@ -1,27 +1,32 @@
-import * as React from 'react'
-import { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { useDispatch} from 'react-redux'
-import { fetchToDo } from './store/asyncActions/todo';
-import Home from "./pages/Home";
-import Forma from "./pages/Forma";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 
+import { Form, Home } from "./pages";
+import { fetchToDo } from "./store/asyncActions/todo";
 
-function App() {
-	const dispatch = useDispatch()
+const App = () => {
+	const dispatch = useDispatch();
+	const { todo } = useSelector(({ todoReducer }) => todoReducer);
 
-	useEffect(()=>{
-		dispatch(fetchToDo())
-	},[])
+	useEffect(() => {
+		if (!todo?.length) {
+			dispatch(fetchToDo());
+		}
+	}, []);
 
-  return (
-    <Routes>
-		<Route path='/' element={<Home/>}/>
-		<Route path='/new' element={<Forma/>}/>
-		<Route path='/new/:id' element={<Forma edit/>}/>
-		<Route path='*' element={<Home/>}/>
-	 </Routes>
-  );
+	useEffect(() => {
+		localStorage.setItem("TODO", JSON.stringify(todo));
+	}, [todo]);
+
+	return (
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/new" element={<Form />} />
+			<Route path="/new/:id" element={<Form edit />} />
+			<Route path="*" element={<Home />} />
+		</Routes>
+	);
 }
 
 export default App;
