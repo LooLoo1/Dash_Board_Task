@@ -4,21 +4,36 @@ import { useSelector } from "react-redux";
 
 import { FiltersAndButton, Loader, ToDoCardList } from "../components";
 import { COLUMNS } from "../constants";
+import { FILTERS } from "../constants/filters";
 import styles from "../index.module.css";
 
 const Home = () => {
-	const { todo: todoList = [], isLoading, error } = useSelector(({ todoReducer }) => todoReducer);
+	const { todo: todoList = [], isLoading, error, filter } = useSelector(({ todoReducer }) => todoReducer);
 	const [todos, setTodos] = useState(todoList);
 
 	useEffect(() => {
 		setTodos(todoList);
 	}, [todoList]);
 
-	const filteredTodos = useMemo(() => {
-		return COLUMNS.map(({ key }) => todos.filter((todo) => todo.status === key));
-	}, [todos]);
-
 	const handleSort = useCallback((sortFunction) => setTodos(sortFunction([...todos])), [todos]);
+
+	const sortedTodos = useMemo(() => {
+		if (filter) {
+			const filterConfig = FILTERS.find((item) => item.name === filter);
+			if (filterConfig && filterConfig.handle) {
+				return filterConfig.handle([...todos]);
+			}
+		}
+		return todos;
+	}, [filter, todos]);
+
+	const filteredTodos = useMemo(() => {
+		const todosByStatus = {};
+		COLUMNS.forEach(({ key }) => {
+			todosByStatus[key] = sortedTodos.filter((todo) => todo.status === key);
+		});
+		return todosByStatus;
+	}, [sortedTodos]);
 
 	if (error) {
 		return (
@@ -29,7 +44,7 @@ const Home = () => {
 	}
 
 	return (
-		<Space className={`${styles.padding}`} direction="vertical" size="large">
+		<Space className={`${styles.block} ${styles.padding}`} direction="vertical" size="large">
 			<FiltersAndButton handleSort={handleSort} />
 			<div className={`${styles.flex} ${styles.justifyContentCenter} ${styles.padding}`}>
 				{isLoading ? <Loader /> : <ToDoCardList filteredTodos={filteredTodos} />}

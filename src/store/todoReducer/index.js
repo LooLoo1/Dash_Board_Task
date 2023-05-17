@@ -1,5 +1,15 @@
 import { COLUMN_TYPES } from "../../constants";
-import { defaultStore, ADD_TODO, CHANGE_STATUS, CHANGE_TODO, FETCH_MANY_TODO, FETCH_TODO_ERROR, FETCH_TODO_SUCCESS, REMOVE_TODO } from "./constants";
+import {
+	ADD_TODO,
+	CHANGE_FILTER,
+	CHANGE_STATUS,
+	CHANGE_TODO,
+	FETCH_MANY_TODO,
+	FETCH_TODO_ERROR,
+	FETCH_TODO_SUCCESS,
+	REMOVE_TODO,
+	defaultStore,
+} from "./constants";
 
 export const todoReducer = (state = defaultStore, action) => {
 	switch (action.type) {
@@ -12,6 +22,8 @@ export const todoReducer = (state = defaultStore, action) => {
 				...state,
 				todo: state.todo.map((obj) => (obj.id === action.payload.id ? { ...obj, status: action.payload.status } : obj)),
 			};
+		case CHANGE_FILTER:
+			return { ...state, filter: action.payload };
 		case CHANGE_TODO:
 			return { ...state, todo: state.todo.map((obj) => (obj.id === action.payload.id ? action.payload : obj)) };
 		case FETCH_MANY_TODO:

@@ -9,6 +9,8 @@ import styles from "../index.module.css";
 import { addToDoAction, changeToDoAction } from "../store/todoReducer/actions";
 
 const { Item } = Form;
+const { Title } = Typography;
+const { TextArea } = Input;
 
 const DEFAULT_FORM_VALUES = {
 	title: "",
@@ -53,18 +55,33 @@ const Forma = ({ edit }) => {
 
 	return (
 		<Space direction="vertical" align="center" className={styles.blockCenter}>
-			<Typography.Title align="center">{edit ? "Edit" : "Create"}</Typography.Title>
+			<Title align="center">{edit ? "Edit" : "Create"}</Title>
 			<Form ref={form} name="form" layout="vertical" onFinish={onFinish} autoComplete="off">
 				<Space direction="vertical">
-					<Item name="title" rules={[{ required: true, message: "Please input title!" }]}>
+					<Item
+						name="title"
+						rules={[
+							{
+								required: true,
+								message: "Please input title!",
+							},
+						]}
+					>
 						<Input placeholder="Write title" />
 					</Item>
 					<Item name="body">
-						<Input.TextArea placeholder="Write description..." />
+						<TextArea placeholder="Write description..." />
 					</Item>
-
 					<Space align="start">
-						<Item name="time" rules={[{ required: true, message: "Please input time!" }]}>
+						<Item
+							name="time"
+							rules={[
+								{
+									required: true,
+									message: "Please input time!",
+								},
+							]}
+						>
 							<DatePicker showTime format={"MMMM D, YYYY h:mm A"} />
 						</Item>
 						<Button type="primary" htmlType="submit">
