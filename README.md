@@ -18,19 +18,19 @@ Check out the live demo of the Todo App [here](https://dash-board-task-pi.vercel
 
 1. Clone the repository:
 
-git clone https://github.com/LooLoo1/Dash_Board_Task.git
+`git clone https://github.com/LooLoo1/Dash_Board_Task.git`
 
 2. Navigate to the project directory:
 
-cd Dash_Board_Task
+`cd Dash_Board_Task`
 
 3. Install dependencies:
 
-npm install
+`npm install`
 
 4. Start the development server:
 
-npm start
+`npm start`
 
 
 5. Open your browser and visit `http://localhost:3000` to see the Todo app.
@@ -45,7 +45,7 @@ npm start
 
 ## Folder Structure
 
-├── public/ # Public assets
+`├── public/ # Public assets
 ├── src/ # Source files
 │ ├── components/ # React components
 │ ├── constants/ # Constants and configurations
@@ -53,7 +53,7 @@ npm start
 │ ├── utils/ # Utility functions
 │ ├── index.js # Entry point
 │ └── index.module.css # Styles
-└── README.md # Project documentation
+└── README.md # Project documentation`
 
 ## Contributing
 

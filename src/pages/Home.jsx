@@ -3,8 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { FiltersAndButton, Loader, ToDoCardList } from "../components";
-import { COLUMNS } from "../constants";
-import { FILTERS } from "../constants/filters";
+import { COLUMNS, FILTERS } from "../constants";
 
 import styles from "../index.module.css";
 

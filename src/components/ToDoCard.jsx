@@ -2,22 +2,24 @@ import { ClockCircleOutlined, DeleteOutlined, EditOutlined } from "@ant-design/i
 import { Card, Select, Typography } from "antd";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { deleteTodo } from "../store/asyncActions/deleteTodo";
 import { changeStatusToDoAction, removeToDoAction } from "../store/todoReducer/actions";
 
 import styles from "../index.module.css";
 
 const { Paragraph } = Typography;
 
-const ToDoCard = ({ data, selectRoleOptions }) => {
+const ToDoCard = memo(({ data, selectRoleOptions }) => {
 	const { id, title, body, time, status } = data;
 
 	const dispatch = useDispatch();
 
 	const handleDeleteClick = useCallback(() => {
+		dispatch(deleteTodo(id));
 		dispatch(removeToDoAction(id));
 	}, [dispatch, id]);
 
@@ -27,6 +29,8 @@ const ToDoCard = ({ data, selectRoleOptions }) => {
 		},
 		[dispatch, id],
 	);
+
+	const formattedTime = dayjs(time).format("MMMM D, YYYY h:mm A");
 
 	return (
 		<Card
@@ -47,11 +51,11 @@ const ToDoCard = ({ data, selectRoleOptions }) => {
 		>
 			<Paragraph ellipsis={{ rows: 5 }}>{body}</Paragraph>
 			<Paragraph strong>
-				{dayjs(time).format("MMMM D, YYYY h:mm A")} <ClockCircleOutlined />
+				{formattedTime} <ClockCircleOutlined />
 			</Paragraph>
 		</Card>
 	);
-};
+});
 
 ToDoCard.propTypes = {
 	data: PropTypes.shape({

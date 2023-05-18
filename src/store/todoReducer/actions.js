@@ -18,3 +18,5 @@ export const changeFilterAction = (payload) => ({ type: CHANGE_FILTER, payload }
 export const fetchToDoGet = (payload) => ({ type: FETCH_MANY_TODO, payload });
 export const fetchToDoSuccess = (payload) => ({ type: FETCH_TODO_SUCCESS, payload });
 export const fetchToDoError = (payload) => ({ type: FETCH_TODO_ERROR, payload });
+
+export const getFilter = (state) => state.todoReducer.filter;

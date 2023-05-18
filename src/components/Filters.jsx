@@ -1,17 +1,16 @@
 import { Button, Space, Typography } from "antd";
 import PropTypes from "prop-types";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import { FILTERS } from "../constants/filters";
-import { changeFilterAction } from "../store/todoReducer/actions";
+import { connect, useDispatch } from "react-redux";
+import { FILTERS } from "../constants";
+import { changeFilterAction, getFilter } from "../store/todoReducer/actions";
 
 import styles from "../index.module.css";
 
 const { Title } = Typography;
 
-const Filters = ({ handleSort }) => {
-	const { filter } = useSelector(({ todoReducer }) => todoReducer);
+const Filters = memo(({ filter, handleSort }) => {
 	const dispatch = useDispatch();
 
 	const handleButtonClick = useCallback(
@@ -38,10 +37,17 @@ const Filters = ({ handleSort }) => {
 			</Space.Compact>
 		</Space>
 	);
+});
+
+const mapStateToProps = (state) => {
+	return {
+		filter: getFilter(state),
+	};
 };
 
 Filters.propTypes = {
+	filter: PropTypes.string,
 	handleSort: PropTypes.func.isRequired,
 };
 
-export default Filters;
+export default connect(mapStateToProps)(Filters);
