@@ -46,7 +46,7 @@ const Home = () => {
 	return (
 		<Space className={`${styles.block} ${styles.padding}`} direction="vertical" size="large">
 			<FiltersAndButton handleSort={handleSort} />
-			<div className={`${styles.flex} ${styles.justifyCenter} ${styles.padding}`}>
+			<div className={`${styles.block} ${styles.padding}`}>
 				{isLoading ? <Loader /> : <ToDoCardList filteredTodos={filteredTodos} />}
 			</div>
 		</Space>

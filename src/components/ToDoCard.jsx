@@ -6,8 +6,8 @@ import { memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { deleteTodo } from "../store/asyncActions/deleteTodo";
-import { changeStatusToDoAction, removeToDoAction } from "../store/todoReducer/actions";
+import { deleteTodo, updateStatusTodo } from "../store/asyncActions";
+import { changeStatusToDoAction } from "../store/todoReducer/actions";
 
 import styles from "../index.module.css";
 
@@ -19,13 +19,13 @@ const ToDoCard = memo(({ data, selectRoleOptions }) => {
 	const dispatch = useDispatch();
 
 	const handleDeleteClick = useCallback(() => {
-		dispatch(deleteTodo(id));
-		dispatch(removeToDoAction(id));
+		dispatch(deleteTodo(data));
 	}, [dispatch, id]);
 
 	const handleStatusChange = useCallback(
 		(status) => {
 			dispatch(changeStatusToDoAction({ id, status }));
+			dispatch(updateStatusTodo(data, { id, status }));
 		},
 		[dispatch, id],
 	);

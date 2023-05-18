@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 
 import { Form, Home } from "./pages";
-import { fetchToDo } from "./store/asyncActions/fetchToDo";
+import { fetchToDo } from "./store/asyncActions";
 
 const App = () => {
 	const dispatch = useDispatch();

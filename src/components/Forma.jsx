@@ -5,9 +5,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { addTodo } from "../store/asyncActions/addTodo";
-import { updateTodo } from "../store/asyncActions/updateTodo";
-import { addToDoAction, changeToDoAction } from "../store/todoReducer/actions";
+import { addTodo, updateTodo } from "../store/asyncActions";
 
 import styles from "../index.module.css";
 
@@ -48,13 +46,9 @@ const Forma = ({ edit }) => {
 		const { id = Date.now(), title, body = "", time, completed = false } = values;
 
 		if (edit) {
-			const obj = { userId: 1, ...defaultValues, title, body, time: new Date(time) };
-			dispatch(changeToDoAction(obj));
-			dispatch(updateTodo(obj));
+			dispatch(updateTodo({ userId: 1, ...defaultValues, title, body, time: new Date(time) }));
 		} else {
-			const obj = { userId: 1, id, title, body, completed, time: new Date(time) };
-			dispatch(addToDoAction(obj));
-			dispatch(addTodo(obj));
+			dispatch(addTodo({ userId: 1, id, title, body, completed, time: new Date(time) }));
 		}
 
 		navigate("/");

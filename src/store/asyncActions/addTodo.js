@@ -1,12 +1,12 @@
 import axios from "axios";
-import { addToDoAction } from "../todoReducer/actions";
+import { addToDoAction, removeToDoAction } from "../todoReducer/actions";
 
 export const addTodo = (todo) => async (dispatch) => {
+	dispatch(addToDoAction(todo));
 	try {
-		const response = await axios.post("https://jsonplaceholder.typicode.com/todos", todo);
-		const addedTodo = response.data;
-		dispatch(addToDoAction(addedTodo));
+		await axios.post("https://jsonplaceholder.typicode.com/todos", todo);
 	} catch (error) {
+		dispatch(removeToDoAction(todo.id))
 		console.error("Error adding todo:", error);
 	}
 };
